@@ -90,15 +90,34 @@
 // console.log("🚀 ~ file: index.ts ~ line 87 ~ len1", len1)
 // console.log("🚀 ~ file: index.ts ~ line 89 ~ len2", len2)
 
+// interface nameObj {
+//     firstName: string
+//     lastName?: string
+// } 
+// const getFullName = ({ firstName, lastName }: nameObj) => {
+//     return `${firstName}${lastName? lastName : ""}`
+// }
+
+// const n1 = getFullName({firstName: "roya", lastName: "song"})
+// const n2 = getFullName({firstName: "helen"})
+// as nameObj 类型断言
+// const n3 = getFullName({firstName: "judy", age: 19} as nameObj)
+// console.log("🚀 ~ file: index.ts ~ line 102 ~ n1", n1)
+// console.log("🚀 ~ file: index.ts ~ line 103 ~ n2", n2)
+// console.log("🚀 ~ file: index.ts ~ line 104 ~ n3", n3)
+
+
 interface nameObj {
     firstName: string
     lastName?: string
+    [key:string]: any //索引签名
 } 
 const getFullName = ({ firstName, lastName }: nameObj) => {
     return `${firstName}${lastName? lastName : ""}`
 }
 
 const n1 = getFullName({firstName: "roya", lastName: "song"})
-const n2 = getFullName({firstName: "helen"})
-console.log("🚀 ~ file: index.ts ~ line 102 ~ n1", n1)
-console.log("🚀 ~ file: index.ts ~ line 103 ~ n2", n2)
+const n2 = getFullName({firstName: "helen", lastName: "huang", age: 40})
+console.log("🚀 ~ file: index.ts ~ line 119 ~ n1", n1)
+console.log("🚀 ~ file: index.ts ~ line 121 ~ n2", n2)
+

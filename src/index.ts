@@ -222,6 +222,11 @@ const potato: Potato = {
 }
 
 
+// const b = undefined
+// const c = b ?? 50
+// console.log("🚀 ~ file: index.ts ~ line 232 ~ c", c)
+
+
 /**
  * @description: 混合类型接口
  * @param {*}
@@ -230,3 +235,93 @@ const potato: Potato = {
 
 
 
+
+
+/**
+ * @description: 泛型
+ * @param {*}
+ * @return {*}
+ */
+interface ValueWithLength {
+    length: number;
+}
+
+// const v1: ValueWithLength = {}; //error
+const v2: ValueWithLength = {length: 1};
+
+const getLength = <T extends ValueWithLength>(param: T): number => {
+    return param.length
+};
+
+getLength("roya");
+getLength([1,2]);
+// getLength(123); //error
+getLength({length: 1});
+
+
+//当我们访问这个对象的’c’属性时，这个属性是没有的。这里我们需要用到索引类型keyof结合泛型来实现对这个问题的检查。索引类型在高级类型一节会详细讲解，这里你只要知道这个例子就可以了：
+const getProps = <T, k extends keyof T>(object: T, key: k) => {
+    return object[key];
+}
+
+const pp1 = getProps({name:"roya", age: 18}, "name");
+// getProps({name:"roya", age: 18}, "school"); //error
+console.log('🚀 ~ pp1', pp1);
+
+
+
+
+
+/**
+ * @description: TS中的class
+ * @param {*}
+ * @return {*}
+ */
+
+/**protected**/
+class Parent {
+    protected age: number;
+    constructor(age: number) {
+        this.age = age;
+    }
+    protected getAge() {
+        return this.age;
+    }
+}
+
+const p = new Parent(18);
+// console.log(p.age); //error
+// console.log(Parent.age); //error
+
+class Child extends Parent {
+    constructor(age: number) {
+        super(age);
+        // console.log(super.age); //Only public and protected methods of the base class are accessible via the 'super' keyword
+        console.log(this.age);
+        console.log(super.getAge());
+    }
+}
+const cc1 = new Child(20);
+console.log('🚀 ~ cc1', cc1);
+// console.log('🚀 ~ cc1', cc1.age); //Property 'age' is protected and only accessible within class 'Parent' and its subclasses
+
+/**implements**/
+
+interface FoodInterface {
+    type: string;
+}
+
+// Property 'type' is missing in type 'FoodClass' but required in type 'FoodInterface'
+// class FoodClass implements FoodInterface {
+//     static type: string;
+//     constructor() {
+
+//     }
+// }
+
+// right syntax
+class FoodClass implements FoodInterface {
+    constructor(public type: string) {}  //这里的public是参数属性，相当于定义了实例的属性了
+}
+
+// 上面接口 FoodInterface 要求使用该接口的值必须有一个 type 属性，定义的类 FoodClass 要使用接口，需要使用关键字implements。implements关键字用来指定一个类要继承的接口，如果是接口和接口、类和类直接的继承，使用extends，如果是类继承接口，则用implements。有一点需要注意，接口检测的是使用该接口定义的类创建的实例，所以上面例子中虽然定义了静态属性 type，但静态属性不会添加到实例上，所以还是报错

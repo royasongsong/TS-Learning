@@ -325,3 +325,36 @@ class FoodClass implements FoodInterface {
 }
 
 // 上面接口 FoodInterface 要求使用该接口的值必须有一个 type 属性，定义的类 FoodClass 要使用接口，需要使用关键字implements。implements关键字用来指定一个类要继承的接口，如果是接口和接口、类和类直接的继承，使用extends，如果是类继承接口，则用implements。有一点需要注意，接口检测的是使用该接口定义的类创建的实例，所以上面例子中虽然定义了静态属性 type，但静态属性不会添加到实例上，所以还是报错
+
+
+
+/**
+ * @description: 在泛型中使用类类型
+ * @param {*}
+ * @return {*}
+ */
+
+ const create = <T>(c: { new (): T }): T => {
+    return new c();
+}
+
+class Info {
+    age: number = 20;
+};
+const ii1 = create(Info).age;
+// create(Info).name; //Property 'name' does not exist on type 'Info'
+console.log('🚀 ~ ii1', ii1);
+
+// const create = <T>(c: { new (age: number): T }, age: number): T => {
+//     return new c(age);
+// }
+
+// class Info {
+//     age: number;
+//     constructor(age: number) {
+//         this.age = age;
+//     }
+// };
+// const ii1 = create(Info, 18).age;
+// // create(Info).name; //Property 'name' does not exist on type 'Info'
+// console.log('🚀 ~ ii1', ii1);

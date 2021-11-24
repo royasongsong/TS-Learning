@@ -389,3 +389,26 @@ let tuple: promiseTuple = [
   new Promise((resolve, reject) => resolve(false)),
   // new Promise((resolve, reject) => resolve('roya')),
 ];
+
+/**
+ * @description: 装饰器
+ * @param {*}
+ * @return {*}
+ */
+// export const setName = function () {
+//   console.log('get setName')
+//   return function (target: any) {
+//     console.log(target)
+//     console.log('setName')
+//   }
+// };
+// @setName()//报错
+
+// function setAge() {
+//   console.log('get setAge')
+//   return function (target: any) {
+//     console.log(target)
+//     console.log('setAge')
+//   }
+// };
+// @setAge();//报错
